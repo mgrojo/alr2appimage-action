@@ -1,0 +1,75 @@
+name: "alr2appimage action"
+description: "Build an AppImage from your Alire crate and publish it to your releases section"
+
+inputs:
+  alr2appimageVersion:
+    description: "Use custom version of alr2appimage"
+    default: v1.0.0
+    required: false
+  alr2appimageArgs:
+    description: "Arguments to pass to alr2appimage"
+    default: "--use-version"
+    required: false    
+  tagName:
+    description: "Tag to use for your application release"
+    default: continuous
+    required: false
+  crateDir:
+    description: "Directory where your Alire crate is located"
+    default: "."
+    required: false
+    
+runs-on: ubuntu-22.04
+runs:
+  using: "composite"
+  steps:
+       
+    # Install and setup Alire package manager
+    - name: Setup Alire
+      uses: alire-project/setup-alire@v2
+         
+    - name: Install dependencies of linuxdeploy and default toolchain
+      run: |
+        sudo apt-get update
+        sudo apt-get install libfuse2
+  
+    - name: Download and setup alr2appimage
+      id: alr2appimage-setup
+      run: |
+        ARCH=$(uname -m)
+        # Determine filename and download URL based on version
+        if [[ "${ALR2APPIMAGE_VERSION}" =~ ^v0\.0|^v0\.1[0-5]\. ]]; then
+          FILENAME="alr2appimage-${ALR2APPIMAGE_VERSION}-${ARCH}.AppImage"
+          DOWNLOAD_URL="https://github.com/mgrojo/alr2appimage/releases/download/v${ALR2APPIMAGE_VERSION}/${FILENAME}"
+        else
+          FILENAME="alr2appimage-${ARCH}.AppImage"
+          DOWNLOAD_URL="https://github.com/alr2appimageverse/alr2appimage/releases/download/${ALR2APPIMAGE_VERSION}/${FILENAME}"
+        fi
+
+        echo "Downloading from: ${DOWNLOAD_URL}"
+        wget -O alr2appimage "${DOWNLOAD_URL}"
+
+        echo "Setting execution permission on ${FILENAME}"
+        chmod +x alr2appimage
+
+      env:
+        ALR2APPIMAGE_VERSION: ${{ inputs.alr2appimageVersion }}
+      shell: bash
+
+    - name: Build AppImage
+      run: |
+         cd $CRATE_DIR
+         alr --non-interactive build --release
+         ./alr2appimage $ALR2APPIMAGE_ARGS
+         rm linuxdeploy*AppImage
+      env:
+        CRATE_DIR: ${{ inputs.crateDir }}
+        ALR2APPIMAGE_ARGS: ${{ inputs.alr2appimageArgs }}
+      shell: bash
+      
+     - name: Release
+       uses: softprops/action-gh-release@v2
+       with:
+         files: ${{ inputs.alireDir }}/*.AppImage
+         prerelease: true
+         tag_name: ${{ inputs.tagName }}
