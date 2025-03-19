@@ -32,6 +32,7 @@ runs:
       run: |
         sudo apt-get update
         sudo apt-get install libfuse2
+      shell: bash
   
     - name: Download and setup alr2appimage
       id: alr2appimage-setup
@@ -66,7 +67,7 @@ runs:
         CRATE_DIR: ${{ inputs.crateDir }}
         ALR2APPIMAGE_ARGS: ${{ inputs.alr2appimageArgs }}
       shell: bash
-      
+
      - name: Release
        uses: softprops/action-gh-release@v2
        with:
