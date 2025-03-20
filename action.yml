@@ -39,13 +39,8 @@ runs:
       run: |
         ARCH=$(uname -m)
         # Determine filename and download URL based on version
-        if [[ "${ALR2APPIMAGE_VERSION}" =~ ^v0\.0|^v0\.1[0-5]\. ]]; then
-          FILENAME="alr2appimage-${ALR2APPIMAGE_VERSION}-${ARCH}.AppImage"
-          DOWNLOAD_URL="https://github.com/mgrojo/alr2appimage/releases/download/v${ALR2APPIMAGE_VERSION}/${FILENAME}"
-        else
-          FILENAME="alr2appimage-${ARCH}.AppImage"
-          DOWNLOAD_URL="https://github.com/alr2appimageverse/alr2appimage/releases/download/${ALR2APPIMAGE_VERSION}/${FILENAME}"
-        fi
+        FILENAME="alr2appimage-${ALR2APPIMAGE_VERSION}-${ARCH}.AppImage"
+        DOWNLOAD_URL="https://github.com/mgrojo/alr2appimage/releases/download/v${ALR2APPIMAGE_VERSION}/${FILENAME}"
 
         echo "Downloading from: ${DOWNLOAD_URL}"
         wget -O alr2appimage "${DOWNLOAD_URL}"
