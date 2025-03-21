@@ -2,9 +2,9 @@ name: "alr2appimage action"
 description: "Build an AppImage from your Alire crate and publish it to your releases section"
 
 inputs:
-    alireVersion:
+  alireVersion:
     description: "Use custom version of Alire"
-    default: 'default'
+    default: "default"
     required: false
   alr2appimageVersion:
     description: "Use custom version of alr2appimage"
