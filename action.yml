@@ -4,7 +4,7 @@ description: "Build an AppImage from your Alire crate and publish it to your rel
 inputs:
   alr2appimageVersion:
     description: "Use custom version of alr2appimage"
-    default: v1.0.0
+    default: 1.0.0
     required: false
   alr2appimageArgs:
     description: "Arguments to pass to alr2appimage"
