@@ -4,7 +4,7 @@ description: "Build an AppImage from your Alire crate and publish it to your rel
 inputs:
   alireVersion:
     description: "Use custom version of Alire"
-    default: "default"
+    default: "2.1.0"
     required: false
   alr2appimageVersion:
     description: "Use custom version of alr2appimage"
