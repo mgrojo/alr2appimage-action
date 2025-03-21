@@ -2,6 +2,10 @@ name: "alr2appimage action"
 description: "Build an AppImage from your Alire crate and publish it to your releases section"
 
 inputs:
+    alireVersion:
+    description: "Use custom version of Alire"
+    default: 'default'
+    required: false
   alr2appimageVersion:
     description: "Use custom version of alr2appimage"
     default: 1.0.0
@@ -26,8 +30,10 @@ runs:
        
     # Install and setup Alire package manager
     - name: Setup Alire
-      uses: alire-project/setup-alire@v2
-         
+      uses: alire-project/setup-alire@v5
+      with:
+        version: ${{ inputs.alireVersion }}
+
     - name: Install dependencies of linuxdeploy and default toolchain
       run: |
         sudo apt-get update
