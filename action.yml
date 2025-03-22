@@ -56,16 +56,18 @@ runs:
         chmod +x alr2appimage
 
       env:
-        CRATE_DIR: ${{ inputs.crateDir }}
+        CRATE_DIR: ${{ inputs.crateDir }}     
         ALR2APPIMAGE_VERSION: ${{ inputs.alr2appimageVersion }}
       shell: bash
 
     - name: Build AppImage
       run: |
+         cd ${CRATE_DIR}
          alr --non-interactive build --release
          ./alr2appimage $ALR2APPIMAGE_ARGS
          rm linuxdeploy*AppImage
       env:
+        CRATE_DIR: ${{ inputs.crateDir }}     
         ALR2APPIMAGE_ARGS: ${{ inputs.alr2appimageArgs }}
       shell: bash
 
