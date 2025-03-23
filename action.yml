@@ -22,7 +22,11 @@ inputs:
     description: "Directory where your Alire crate is located"
     default: "."
     required: false
-    
+  deleteExistent:
+    description: "Delete the tag and release if already existent"
+    default: false
+    required: false
+
 runs-on: ubuntu-22.04
 runs:
   using: "composite"
@@ -69,6 +73,14 @@ runs:
       env:
         CRATE_DIR: ${{ inputs.crateDir }}     
         ALR2APPIMAGE_ARGS: ${{ inputs.alr2appimageArgs }}
+      shell: bash
+
+    - if: ${{ inputs.deleteExistent }}
+      name: Delete existent release
+      run: gh release delete $TAG_NAME --cleanup-tag --yes --repo $GITHUB_REPOSITORY || echo "Release or tag $TAG_NAME does not exist."
+      env:
+        TAG_NAME: ${{ inputs.tagName }}
+        GH_TOKEN: ${{ github.token }}
       shell: bash
 
     - name: Release
