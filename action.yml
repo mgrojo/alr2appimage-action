@@ -91,4 +91,4 @@ runs:
         tag_name: ${{ inputs.tagName }}
 branding:
   icon: 'box'
-  color: 'steelblue'
+  color: 'blue'
