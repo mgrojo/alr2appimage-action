@@ -16,6 +16,7 @@ Full example in https://github.com/mgrojo/open_url/blob/main/.github/workflows/m
        - name: alr2appimage-action
          uses: mgrojo/alr2appimage-action@v1
          with: # All these arguments are optional. The indicated values are the default ones.
+           alireVersion: 2.1.0 # Use custom version of Alire
            alr2appimageVersion: 1.0.0 # Use custom version of alr2appimage.
            alr2appimageArgs: "--use-version" # Arguments to pass to alr2appimage
            tagName: "continuous" # Tag to use for your application release.
