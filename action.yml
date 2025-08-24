@@ -89,6 +89,7 @@ runs:
         files: ${{ inputs.crateDir }}/*.AppImage
         prerelease: true
         tag_name: ${{ inputs.tagName }}
+        target_commitish: ${{ github.ref_name }}
 branding:
   icon: 'box'
   color: 'blue'
