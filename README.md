@@ -18,7 +18,7 @@ Example with all the arguments, which are optional. The indicated values are the
          uses: mgrojo/alr2appimage-action@v1
          with:
            alireVersion: 2.1.0 # Use custom version of Alire
-           alr2appimageVersion: 1.1.0 # Use custom version of alr2appimage.
+           alr2appimageVersion: 1.1.1 # Use custom version of alr2appimage.
            alr2appimageArgs: "--use-version" # Arguments to pass to alr2appimage
            tagName: "continuous" # Tag to use for your application release.
            crateDir: "." # Directory where your Alire crate is located
