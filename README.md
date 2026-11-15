@@ -10,7 +10,7 @@ Example with all the arguments, which are optional. The indicated values are the
 
 ```yaml
     name: Continuous AppImage
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
        - name: Checkout
          uses: actions/checkout@v2
@@ -29,7 +29,7 @@ Example to make a continuous release with AppImage, Deb and RPM packages.
 
 ```yaml
     name: Continuous Packages
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
        - name: Checkout
          uses: actions/checkout@v2
